@@ -6,63 +6,60 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function clickHandler(element) {
     //obtem numero informado
-    app.valorInformado = document.getElementById('entrada').value;
-    
-    //salva numero informado para string
-    addValor();
-    
-    //reduz contador
-    app.contador --;
-    
-    //vibrate();
-    //alert(sorteaNumero());
-    //alert(app.contador);
-    
-    
+    if (app.contador > 0){
+        addValor();
+    }else{
+        alert('Numero de tentativas esgotadas.');
+    }
+}
+
+function IniciaValores(){
+    app.numeroSorteado = sorteaNumero();
+    app.contador = 10;
+    app.valorInformado = "";
+    app.valoresInfo = '<p>Numeros informados:</p>';
     EscreveTentativas();
-    Condicao();
-    
 }
 
 function clickHola(element){
-    app.numeroSorteado = sorteaNumero();
-    app.contador = 10;
-    app.valorInformado = -1;
-    app.valoresInfo = '';
-    EscreveTentativas();
-    vibrate();
-    
+    IniciaValores();
 }
 
 function main(){
-    app.numeroSorteado = sorteaNumero();
-    app.contador = 10;
-    app.valorInformado = -1;
-    app.valoresInfo = '';
-    EscreveTentativas();
-    alert("numero sorteado"+app.numeroSorteado);
+    IniciaValores();
+}
+
+function addValor(){
+    //le o campo
+    app.valorInformado = document.getElementById('entrada').value;
+    //trata entrada
+    if (app.valorInformado==''){
+        alert("Valor digitado invalido");
+    }else{
+        app.contador --;
+        EscreveTentativas();
+        Condicao();
+    }
+}
+
+function sorteaNumero(){
+    return Math.floor(Math.random()*5)+1;
 }
 
 function vibrate(){
     navigator.vibrate(1000);
 }
 
-function addValor(){
-    var x = '<p>'+document.getElementById('entrada').value+'</p>';
-    app.valoresInfo += x;
-}
-
-function sorteaNumero(){
-    return Math.floor(Math.random()*10000)+1;
-}
-
-function EscreveTentativas(){
+function EscreveTentativas(){  
     document.getElementById('tentativas').innerHTML = app.contador+' tentativas restantes';
-    
+    //escreve valores
+    app.valoresInfo += "<p>"+app.valorInformado+"</p>";
     document.getElementById('valores').innerHTML = app.valoresInfo;
+    document.getElementById('entrada').value = '';
 }
 
 function Condicao(){
+    //verifica se acertou ou se foi maior ou menor
     if (app.numeroSorteado > app.valorInformado){
         alert('Numero Menor que o numero sorteado');
     }
@@ -72,4 +69,6 @@ function Condicao(){
         alert('Acertou!');
         vibrate();
     }
+    
+    
 }
