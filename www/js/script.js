@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('botao').addEventListener('click', clickHandler);
     document.getElementById('reinicia').addEventListener('click', clickHola);
+    document.getElementById('cheat').addEventListener('click', cheat);
     main();
 });
 
@@ -11,6 +12,10 @@ function clickHandler(element) {
     }else{
         alert('Numero de tentativas esgotadas.');
     }
+}
+
+function cheat(element) {
+    alert(app.numeroSorteado);
 }
 
 function IniciaValores(){
@@ -43,7 +48,7 @@ function addValor(){
 }
 
 function sorteaNumero(){
-    return Math.floor(Math.random()*5)+1;
+    return Math.floor(Math.random()*10000)+1;
 }
 
 function vibrate(){
