@@ -30,6 +30,8 @@ function clickHola(element){
     app.valorInformado = -1;
     app.valoresInfo = '';
     EscreveTentativas();
+    vibrate();
+    
 }
 
 function main(){
